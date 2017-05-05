@@ -87,15 +87,15 @@
         function _upsize() {
             selectedElement.setAttributeNS(null, 'width', currentWidth);
             selectedElement.setAttributeNS(null, 'height', currentHeight);
-            currentWidth = Number(currentWidth) + 0.3;
-            currentHeight = Number(currentHeight) + 0.3;
+            currentWidth = Number(currentWidth) + 0.8;
+            currentHeight = Number(currentHeight) + 0.8;
         }
 
         function _downsize() {
             selectedElement.setAttributeNS(null, 'width', currentWidth);
             selectedElement.setAttributeNS(null, 'height', currentHeight);
-            currentWidth = Number(currentWidth) - 0.3;
-            currentHeight = Number(currentHeight) - 0.3;
+            currentWidth = Number(currentWidth) - 0.8;
+            currentHeight = Number(currentHeight) - 0.8;
         }
 
         function _resize(e) {
