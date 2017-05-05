@@ -1,0 +1,62 @@
+.kiwi:hover {
+    fill: #ace63c;
+}
+
+.w-title {
+    text-align: center;
+    margin: 0 auto;
+    font-weight: bold;
+    color: white;
+}
+
+.ground:hover {
+    /*filter: url(#pictureFilter);*/
+    fill: #896d3d;
+}
+
+.svg {
+    display: block;
+    height: 600px;
+    width: 100%;
+    background-color: gray;
+}
+
+.svgRect {
+    fill: #f4ff05;
+}
+
+.svgRect:hover {
+    fill: #faff8a;
+}
+
+.phrase {
+    position: absolute;
+    font-size: 26px;
+    font-weight: bold;
+    color: white;
+}
+
+.btn-create {
+    padding: 15px;
+    margin: 5px;
+    border: none;
+    /*outline: none;*/
+    color: white;
+    background-color: black;
+}
+
+.btn-create:hover {
+    background-color: gray;
+}
+
+.btn-create:focus {
+    background-color: cornflowerblue;
+}
+
+.active {
+    background-color: cornflowerblue;
+}
+
+.createMode {
+    cursor: pointer;
+}
