@@ -1,4 +1,5 @@
 (function(global) {
+    'use strict';
     var svgPlaceholder = document.getElementById("svgPlaceholder"),
         svg = document.getElementById('svgContainer'),
         createBtn = document.getElementById('create'),
@@ -27,12 +28,9 @@
         rect.setAttribute('stroke', 'black');
         rect.setAttribute('stroke-width', '1px');
         rect.setAttribute('transform', 'matrix(1 0 0 1 0 0)');
-        // if (draggable) {
-        //     rect.addEventListener('mousedown', selectElement);
-        // }
+
         svg.appendChild(rect);
         rects.push(rect);
-        // global.rects = rects;
     }
     /**
      * DRAG OBJECT EVENT METHOD
@@ -49,9 +47,10 @@
             currentMatrix[i] = parseFloat(currentMatrix[i]);
         }
 
+        //method that moves the selected element to the mouse position
         function _moveElement(event) {
-            dx = (event.clientX - currX) / 4;
-            dy = (event.clientY - currY) / 4;
+            var dx = (event.clientX - currX) / 4,
+                dy = (event.clientY - currY) / 4;
             currentMatrix[4] += dx;
             currentMatrix[5] += dy;
             var newMatrix = 'matrix(' + currentMatrix.join(" ") + ')';
@@ -60,6 +59,7 @@
             currY = event.clientY;
         }
 
+        //deselect event method used to remove events from the selected element
         function _deselectElement(event) {
             if (selectedElement != 0) {
                 selectedElement.removeAttributeNS(null, 'onmousemove');
@@ -80,10 +80,10 @@
         var selectedElement = e.target,
             currentWidth = selectedElement.getAttributeNS(null, 'width'),
             resize = _resize,
-            deselectElement = _deselectElement;
-        currentHeight = selectedElement.getAttributeNS(null, 'height');
-        console.log('selected ', selectedElement);
+            deselectElement = _deselectElement,
+            currentHeight = selectedElement.getAttributeNS(null, 'height');
 
+        //method to scale element up
         function _upsize() {
             selectedElement.setAttributeNS(null, 'width', currentWidth);
             selectedElement.setAttributeNS(null, 'height', currentHeight);
@@ -91,6 +91,7 @@
             currentHeight = Number(currentHeight) + 0.8;
         }
 
+        //method to scale element down
         function _downsize() {
             selectedElement.setAttributeNS(null, 'width', currentWidth);
             selectedElement.setAttributeNS(null, 'height', currentHeight);
@@ -98,6 +99,7 @@
             currentHeight = Number(currentHeight) - 0.8;
         }
 
+        //method to resize element depending on the direction the mouse is pursuing
         function _resize(e) {
 
             if (e.pageX > oldX) {
@@ -108,6 +110,7 @@
             oldX = e.pageX;
         }
 
+        //deselect event method used to remove events from the selected element
         function _deselectElement() {
             if (selectedElement != 0) {
                 selectedElement.removeAttributeNS(null, 'onmousemove');
@@ -121,7 +124,9 @@
         selectedElement.addEventListener('mouseout', deselectElement);
         selectedElement.addEventListener('mouseup', deselectElement);
     }
-
+    /**
+     * END EVENT METHODS
+     */
     /**
      * ----------------------
      * Adding Events to buttons

@@ -4,6 +4,7 @@
 
 .w-title {
     text-align: center;
+    font-size: 42px;
     margin: 0 auto;
     font-weight: bold;
     color: white;
@@ -36,13 +37,16 @@
     color: white;
 }
 
-.btn-create {
-    padding: 15px;
+button.btn-create {
+    padding: 20px;
     margin: 5px;
+    width: 120px;
     border: none;
+    font-size: 23px;
     /*outline: none;*/
     color: white;
     background-color: black;
+    cursor: pointer;
 }
 
 .btn-create:hover {
