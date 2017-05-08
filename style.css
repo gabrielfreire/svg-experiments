@@ -36,7 +36,7 @@
 button.btn-create {
     padding: 20px;
     margin: 5px;
-    width: 120px;
+    width: 140px;
     border: none;
     font-size: 23px;
     /*outline: none;*/
@@ -46,14 +46,15 @@ button.btn-create {
 }
 
 button.btn-create-obj {
-    padding: 20px;
+    padding: 15px;
     margin: 5px;
-    width: 90px;
+    width: 80px;
     border: none;
-    font-size: 23px;
+    font-size: 28px;
     /*outline: none;*/
-    color: white;
-    background-color: black;
+    color: black;
+    background-color: gray;
+    border: 2px solid black;
     cursor: pointer;
 }
 
@@ -62,7 +63,7 @@ button.btn-create-obj {
 }
 
 .btn-create-obj:hover {
-    background-color: gray;
+    background-color: white;
 }
 
 .btn-create:focus {
