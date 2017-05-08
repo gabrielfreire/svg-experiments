@@ -22,11 +22,7 @@
     background-color: gray;
 }
 
-.svgRect:hover {
-    fill: #faff8a;
-}
-
-.svgCircle:hover {
+.svgElement:hover {
     fill: #faff8a;
 }
 
@@ -49,7 +45,23 @@ button.btn-create {
     cursor: pointer;
 }
 
+button.btn-create-obj {
+    padding: 20px;
+    margin: 5px;
+    width: 90px;
+    border: none;
+    font-size: 23px;
+    /*outline: none;*/
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}
+
 .btn-create:hover {
+    background-color: gray;
+}
+
+.btn-create-obj:hover {
     background-color: gray;
 }
 

@@ -2,14 +2,15 @@
     'use strict';
     var svgPlaceholder = document.getElementById("svgPlaceholder"),
         svg = document.getElementById('svgContainer'),
-        createBtn = document.getElementById('create'),
+        createRect = document.getElementById('create-rect'),
+        createCircle = document.getElementById('create-circle'),
         dragBtn = document.getElementById('drag'),
         scaleBtn = document.getElementById('scale'),
         rects = [],
         oldX = 0,
         svgElement = new SVGElement({
             stroke: 'black',
-            color: 'blue'
+            color: 'white'
         });
 
 
@@ -18,20 +19,23 @@
     /**
      * CREATE SVG ELEMENT EVENT METHOD
      */
-    function createSvg(event) {
-        var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect'),
-            body = document.body,
-            positionX = event.clientX / 4,
-            positionY = event.clientY / 4;
+    function createRectX(event) {
+        var positionX = event.clientX / 4,
+            positionY = event.clientY / 4,
+            //x, y, width, height
+            element = svgElement.createRect(positionX, positionY, '40', '40');
 
-        //x, y, width, height
-        // var element = svgElement.createRect(positionX, positionY, '40', '40');
-        var cir = svgElement.createRect(positionX, positionY);
-        console.log(svgElement.elements);
+        svg.appendChild(element);
+        rects.push(element);
+    }
 
-        // svg.appendChild(element);
+    function createCircleX(event) {
+        var positionX = event.clientX / 4,
+            positionY = event.clientY / 4,
+            //x, y, width, height
+            cir = svgElement.createCircle(positionX, positionY);
+
         svg.appendChild(cir);
-        // rects.push(element);
         rects.push(cir);
     }
     /**
@@ -45,12 +49,9 @@
             deselectElement = _deselectElement,
             currentMatrix = selectedElement.getAttributeNS(null, "transform").slice(7, -1).split(' ');
 
-        console.log(currentMatrix);
-
         for (var i = 0; i < currentMatrix.length; i++) {
             currentMatrix[i] = parseFloat(currentMatrix[i]);
         }
-        console.log(currentMatrix);
 
         //method that moves the selected element to the mouse position
         function _moveElement(event) {
@@ -87,6 +88,7 @@
             resize = _resize,
             rescale = _rescale,
             deselectElement = _deselectElement,
+            currentRadius = selectedElement.getAttributeNS(null, 'r'),
             currentHeight = selectedElement.getAttributeNS(null, 'height');
 
         //method to scale element up
@@ -105,14 +107,14 @@
             currentHeight = Number(currentHeight) - 0.8;
         }
 
-        function _upScale() {
-            var scale = 'scale(1.' + (oldX++) + ')';
-            selectedElement.setAttributeNS(null, 'transform', scale);
+        function _upScale(e) {
+            selectedElement.setAttributeNS(null, 'r', currentRadius);
+            currentRadius = Number(currentRadius) + 0.8;
         }
 
-        function _downScale() {
-            var scale = 'scale(1.' + (oldX--) + ')';
-            selectedElement.setAttributeNS(null, 'transform', scale);
+        function _downScale(e) {
+            selectedElement.setAttributeNS(null, 'r', currentRadius);
+            currentRadius = Number(currentRadius) - 0.8;
         }
 
         //method to resize element depending on the direction the mouse is pursuing
@@ -128,9 +130,9 @@
 
         function _rescale(e) {
             if (e.pageX > oldX) {
-                _upScale();
+                _upScale(e);
             } else if (e.pageX < oldX) {
-                _downScale();
+                _downScale(e);
             }
             oldX = e.pageX;
         }
@@ -165,11 +167,28 @@
     // --------
     // CREATE
     // --------
-    createBtn.addEventListener('click', function(e) {
+    createRect.addEventListener('click', function(e) {
         dragBtn.classList.remove('active');
         scaleBtn.classList.remove('active');
-        createBtn.classList.add('active');
-        svgPlaceholder.addEventListener('mouseup', createSvg);
+        createRect.classList.add('active');
+        createCircle.classList.remove('active');
+        svgPlaceholder.removeEventListener('mouseup', createCircleX);
+        svgPlaceholder.addEventListener('mouseup', createRectX);
+        svgPlaceholder.classList.add('createMode');
+        if (rects.length > 0) {
+            rects.forEach(function(rect) {
+                rect.removeEventListener('mousedown', selectToScaleElement);
+                rect.removeEventListener('mousedown', selectToDragElement);
+            });
+        }
+    });
+    createCircle.addEventListener('click', function(e) {
+        dragBtn.classList.remove('active');
+        scaleBtn.classList.remove('active');
+        createRect.classList.remove('active');
+        createCircle.classList.add('active');
+        svgPlaceholder.removeEventListener('mouseup', createRectX);
+        svgPlaceholder.addEventListener('mouseup', createCircleX);
         svgPlaceholder.classList.add('createMode');
         if (rects.length > 0) {
             rects.forEach(function(rect) {
@@ -184,8 +203,10 @@
     dragBtn.addEventListener('click', function(e) {
         dragBtn.classList.add('active');
         scaleBtn.classList.remove('active');
-        createBtn.classList.remove('active');
-        svgPlaceholder.removeEventListener('mouseup', createSvg);
+        createRect.classList.remove('active');
+        createCircle.classList.remove('active');
+        svgPlaceholder.removeEventListener('mouseup', createRectX);
+        svgPlaceholder.removeEventListener('mouseup', createCircleX);
         svgPlaceholder.classList.remove('createMode');
         if (rects.length > 0) {
             rects.forEach(function(rect) {
@@ -200,8 +221,10 @@
     scaleBtn.addEventListener('click', function(e) {
         dragBtn.classList.remove('active');
         scaleBtn.classList.add('active');
-        createBtn.classList.remove('active');
-        svgPlaceholder.removeEventListener('mouseup', createSvg);
+        createRect.classList.remove('active');
+        createCircle.classList.remove('active');
+        svgPlaceholder.removeEventListener('mouseup', createRectX);
+        svgPlaceholder.removeEventListener('mouseup', createCircleX);
         svgPlaceholder.classList.remove('createMode');
         if (rects.length > 0) {
             rects.forEach(function(rect) {
