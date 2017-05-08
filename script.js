@@ -6,7 +6,12 @@
         dragBtn = document.getElementById('drag'),
         scaleBtn = document.getElementById('scale'),
         rects = [],
-        oldX = 0;
+        oldX = 0,
+        svgElement = new SVGElement({
+            stroke: 'black',
+            color: 'blue'
+        });
+
 
     svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
 
@@ -19,18 +24,15 @@
             positionX = event.clientX / 4,
             positionY = event.clientY / 4;
 
+        //x, y, width, height
+        // var element = svgElement.createRect(positionX, positionY, '40', '40');
+        var cir = svgElement.createRect(positionX, positionY);
+        console.log(svgElement.elements);
 
-        rect.setAttribute('x', positionX);
-        rect.setAttribute('y', positionY);
-        rect.setAttribute('class', 'svgRect');
-        rect.setAttribute('width', '40');
-        rect.setAttribute('height', '40');
-        rect.setAttribute('stroke', 'black');
-        rect.setAttribute('stroke-width', '1px');
-        rect.setAttribute('transform', 'matrix(1 0 0 1 0 0)');
-
-        svg.appendChild(rect);
-        rects.push(rect);
+        // svg.appendChild(element);
+        svg.appendChild(cir);
+        // rects.push(element);
+        rects.push(cir);
     }
     /**
      * DRAG OBJECT EVENT METHOD
@@ -43,9 +45,12 @@
             deselectElement = _deselectElement,
             currentMatrix = selectedElement.getAttributeNS(null, "transform").slice(7, -1).split(' ');
 
+        console.log(currentMatrix);
+
         for (var i = 0; i < currentMatrix.length; i++) {
             currentMatrix[i] = parseFloat(currentMatrix[i]);
         }
+        console.log(currentMatrix);
 
         //method that moves the selected element to the mouse position
         function _moveElement(event) {
@@ -80,6 +85,7 @@
         var selectedElement = e.target,
             currentWidth = selectedElement.getAttributeNS(null, 'width'),
             resize = _resize,
+            rescale = _rescale,
             deselectElement = _deselectElement,
             currentHeight = selectedElement.getAttributeNS(null, 'height');
 
@@ -99,6 +105,16 @@
             currentHeight = Number(currentHeight) - 0.8;
         }
 
+        function _upScale() {
+            var scale = 'scale(1.' + (oldX++) + ')';
+            selectedElement.setAttributeNS(null, 'transform', scale);
+        }
+
+        function _downScale() {
+            var scale = 'scale(1.' + (oldX--) + ')';
+            selectedElement.setAttributeNS(null, 'transform', scale);
+        }
+
         //method to resize element depending on the direction the mouse is pursuing
         function _resize(e) {
 
@@ -106,6 +122,15 @@
                 _upsize();
             } else if (e.pageX < oldX) {
                 _downsize();
+            }
+            oldX = e.pageX;
+        }
+
+        function _rescale(e) {
+            if (e.pageX > oldX) {
+                _upScale();
+            } else if (e.pageX < oldX) {
+                _downScale();
             }
             oldX = e.pageX;
         }
@@ -119,8 +144,12 @@
                 selectedElement = 0;
             }
         }
-
-        selectedElement.addEventListener('mousemove', resize);
+        console.log(selectedElement.isRect);
+        if (selectedElement.isRect) {
+            selectedElement.addEventListener('mousemove', resize);
+        } else {
+            selectedElement.addEventListener('mousemove', rescale);
+        }
         selectedElement.addEventListener('mouseout', deselectElement);
         selectedElement.addEventListener('mouseup', deselectElement);
     }

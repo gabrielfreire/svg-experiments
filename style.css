@@ -22,11 +22,11 @@
     background-color: gray;
 }
 
-.svgRect {
-    fill: #f4ff05;
+.svgRect:hover {
+    fill: #faff8a;
 }
 
-.svgRect:hover {
+.svgCircle:hover {
     fill: #faff8a;
 }
 
