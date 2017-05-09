@@ -48,14 +48,14 @@
     function element_position(e) {
         var x = 0,
             y = 0;
+        console.log(e);
         var inner = true;
         do {
             x += e.offsetLeft;
             y += e.offsetTop;
         } while (e = e.offsetParent);
-        return { x: x, y: y };
+        return { x: Number(x), y: Number(y) };
     }
-
     /**
      * CREATE SVG ELEMENT EVENT METHOD
      */
@@ -63,19 +63,20 @@
         var positionX = event.clientX / 4,
             positionY = event.clientY / 4,
             //x, y, width, height
-            element = svgElement.createRect(positionX, positionY);
-        // console.log(positionX, positionY);
+            element = svgElement.createRect(Math.round(positionX), Math.round(positionY));
 
         svg.appendChild(element.el);
         elementsArray.push(element);
+
+        currX = event.clientX;
+        currY = event.clientY;
     }
 
     function _createCircleX(event) {
         var positionX = event.clientX / 4,
             positionY = event.clientY / 4,
             //x, y, width, height
-            element = svgElement.createCircle(positionX, positionY);
-
+            element = svgElement.createCircle(Math.round(positionX), Math.round(positionY));
         svg.appendChild(element.el);
         elementsArray.push(element);
     }
