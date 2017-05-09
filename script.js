@@ -18,6 +18,7 @@
 
 
     svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
+    svg.setAttributeNS(null, 'viewBox', "0 0 " + screen.width + " " + screen.height);
 
 
     //Function to handle XML http requests
@@ -60,21 +61,18 @@
      * CREATE SVG ELEMENT EVENT METHOD
      */
     function _createRectX(event) {
-        var positionX = event.clientX / 4,
-            positionY = event.clientY / 4,
+        var positionX = event.clientX,
+            positionY = event.clientY,
             //x, y, width, height
-            element = svgElement.createRect(Math.round(positionX), Math.round(positionY));
+            element = svgElement.createRect(positionX, positionY);
 
         svg.appendChild(element.el);
         elementsArray.push(element);
-
-        currX = event.clientX;
-        currY = event.clientY;
     }
 
     function _createCircleX(event) {
-        var positionX = event.clientX / 4,
-            positionY = event.clientY / 4,
+        var positionX = event.clientX,
+            positionY = event.clientY,
             //x, y, width, height
             element = svgElement.createCircle(Math.round(positionX), Math.round(positionY));
         svg.appendChild(element.el);

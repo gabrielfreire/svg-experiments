@@ -15,6 +15,45 @@
     fill: #896d3d;
 }
 
+
+/* ---------------- */
+
+.background {
+    fill: none;
+    stroke: #444;
+    stroke-width: 1;
+    stroke-dasharray: 5, 5;
+}
+
+.control_point {
+    fill-opacity: 0;
+    stroke-opacity: 0;
+    stroke: #888;
+    stroke-width: 2;
+    cursor: pointer;
+}
+
+#example_shape {
+    stroke: #666;
+    stroke-width: 2;
+    fill: none;
+}
+
+.invisible {
+    pointer-events: none;
+}
+
+.point2 {
+    fill: #6495ED;
+}
+
+.point1 {
+    fill: #28A86B;
+}
+
+
+/* ---------------- */
+
 .svg {
     display: block;
     height: 600px;

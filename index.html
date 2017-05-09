@@ -6,12 +6,25 @@
     <meta charset="UTF-8">
     <title>SVG</title>
     <link rel="stylesheet" href="style.css" />
+
 </head>
 
 <body>
     <div id="svgPlaceholder" class='svg'>
         <h3 class="w-title">SVG Workspace</h3>
-        <svg id='svgContainer' viewBox='0 0 500 600' x="0" y="0"></svg>
+
+        <svg id='svgContainer' x="0" y="0">
+            <!--<rect xmlns="http://www.w3.org/2000/svg" class="background" x="0.5" y="0.5" width="499" height="179"/>-->
+            <!--<rect xmlns="http://www.w3.org/2000/svg" id="example_shape" x="120" y="40" width="100" height="60"/>
+            <g xmlns="http://www.w3.org/2000/svg" id="control_point0" transform="translate(120,40)">
+                <circle class="control_point" cx="0" cy="0" r="10"/>
+                <circle class="point1 invisible" cx="0" cy="0" r="3"/>
+            </g>
+            <g xmlns="http://www.w3.org/2000/svg" id="control_point1" transform="translate(220,100)">
+                <circle class="control_point" cx="0" cy="0" r="10"/>
+                <circle class="point2 invisible" cx="0" cy="0" r="3"/>
+            </g>-->
+        </svg>
     </div>
     <button id="create-circle" class="btn-create-obj"><i class="fa fa-circle-o" aria-hidden="true"></i></button>
     <button id="create-rect" class="btn-create-obj"><i class="fa fa-square-o" aria-hidden="true"></i></button>
@@ -20,6 +33,7 @@
 
     <script src="node_modules/requirejs/require.js"></script>
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <!--<script src="test.js"></script>-->
     <script src="lib/element.model.js"></script>
     <script src="lib/svg.model.js"></script>
     <script src="script.js"></script>
