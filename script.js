@@ -6,7 +6,7 @@
         createCircle = document.getElementById('create-circle'),
         dragBtn = document.getElementById('drag'),
         scaleBtn = document.getElementById('scale'),
-        rects = [],
+        elementsArray = [],
         oldX = 0,
         svgElement = new SVGElement({
             stroke: 'black',
@@ -38,7 +38,6 @@
     _xmlHttpRequest(url, data, function(xml) {
         var parser = new DOMParser(),
             data = xml.getElementsByTagName('data')[0];
-        console.log(xml, ' < XML Response');
         console.log(data.childNodes[0], ' < XML DATA Response');
     }, function(xhr, ajaxOptions, thrownError) {
         console.log('error');
@@ -46,28 +45,39 @@
         // console.log(thrownError);
     });
 
+    function element_position(e) {
+        var x = 0,
+            y = 0;
+        var inner = true;
+        do {
+            x += e.offsetLeft;
+            y += e.offsetTop;
+        } while (e = e.offsetParent);
+        return { x: x, y: y };
+    }
 
     /**
      * CREATE SVG ELEMENT EVENT METHOD
      */
-    function createRectX(event) {
+    function _createRectX(event) {
         var positionX = event.clientX / 4,
             positionY = event.clientY / 4,
             //x, y, width, height
-            element = svgElement.createRect(positionX, positionY, '40', '40');
+            element = svgElement.createRect(positionX, positionY);
+        // console.log(positionX, positionY);
 
         svg.appendChild(element.el);
-        rects.push(element);
+        elementsArray.push(element);
     }
 
-    function createCircleX(event) {
+    function _createCircleX(event) {
         var positionX = event.clientX / 4,
             positionY = event.clientY / 4,
             //x, y, width, height
-            cir = svgElement.createCircle(positionX, positionY);
+            element = svgElement.createCircle(positionX, positionY);
 
-        svg.appendChild(cir.el);
-        rects.push(cir);
+        svg.appendChild(element.el);
+        elementsArray.push(element);
     }
     /**
      * ----------------------
@@ -83,13 +93,13 @@
         scaleBtn.classList.remove('active');
         createRect.classList.add('active');
         createCircle.classList.remove('active');
-        svgPlaceholder.removeEventListener('mouseup', createCircleX);
-        svgPlaceholder.addEventListener('mouseup', createRectX);
+        svgPlaceholder.removeEventListener('mouseup', _createCircleX);
+        svgPlaceholder.addEventListener('mouseup', _createRectX);
         svgPlaceholder.classList.add('createMode');
-        if (rects.length > 0) {
-            rects.forEach(function(rect) {
-                rect.el.removeEventListener('mousedown', rect.selectToScaleElement);
-                rect.el.removeEventListener('mousedown', rect.selectToDragElement);
+        if (elementsArray.length > 0) {
+            elementsArray.forEach(function(element) {
+                element.el.removeEventListener('mousedown', element.selectToScaleElement);
+                element.el.removeEventListener('mousedown', element.selectToDragElement);
             });
         }
     });
@@ -98,13 +108,13 @@
         scaleBtn.classList.remove('active');
         createRect.classList.remove('active');
         createCircle.classList.add('active');
-        svgPlaceholder.removeEventListener('mouseup', createRectX);
-        svgPlaceholder.addEventListener('mouseup', createCircleX);
+        svgPlaceholder.removeEventListener('mouseup', _createRectX);
+        svgPlaceholder.addEventListener('mouseup', _createCircleX);
         svgPlaceholder.classList.add('createMode');
-        if (rects.length > 0) {
-            rects.forEach(function(rect) {
-                rect.el.removeEventListener('mousedown', rect.selectToScaleElement);
-                rect.el.removeEventListener('mousedown', rect.selectToDragElement);
+        if (elementsArray.length > 0) {
+            elementsArray.forEach(function(element) {
+                element.el.removeEventListener('mousedown', element.selectToScaleElement);
+                element.el.removeEventListener('mousedown', element.selectToDragElement);
             });
         }
     });
@@ -116,13 +126,13 @@
         scaleBtn.classList.remove('active');
         createRect.classList.remove('active');
         createCircle.classList.remove('active');
-        svgPlaceholder.removeEventListener('mouseup', createRectX);
-        svgPlaceholder.removeEventListener('mouseup', createCircleX);
+        svgPlaceholder.removeEventListener('mouseup', _createRectX);
+        svgPlaceholder.removeEventListener('mouseup', _createCircleX);
         svgPlaceholder.classList.remove('createMode');
-        if (rects.length > 0) {
-            rects.forEach(function(rect) {
-                rect.el.removeEventListener('mousedown', rect.selectToScaleElement);
-                rect.el.addEventListener('mousedown', rect.selectToDragElement);
+        if (elementsArray.length > 0) {
+            elementsArray.forEach(function(element) {
+                element.el.removeEventListener('mousedown', element.selectToScaleElement);
+                element.el.addEventListener('mousedown', element.selectToDragElement);
             });
         }
     });
@@ -134,13 +144,13 @@
         scaleBtn.classList.add('active');
         createRect.classList.remove('active');
         createCircle.classList.remove('active');
-        svgPlaceholder.removeEventListener('mouseup', createRectX);
-        svgPlaceholder.removeEventListener('mouseup', createCircleX);
+        svgPlaceholder.removeEventListener('mouseup', _createRectX);
+        svgPlaceholder.removeEventListener('mouseup', _createCircleX);
         svgPlaceholder.classList.remove('createMode');
-        if (rects.length > 0) {
-            rects.forEach(function(rect) {
-                rect.el.removeEventListener('mousedown', rect.selectToDragElement);
-                rect.el.addEventListener('mousedown', rect.selectToScaleElement);
+        if (elementsArray.length > 0) {
+            elementsArray.forEach(function(element) {
+                element.el.removeEventListener('mousedown', element.selectToDragElement);
+                element.el.addEventListener('mousedown', element.selectToScaleElement);
             });
         }
     });
