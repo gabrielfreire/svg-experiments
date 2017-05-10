@@ -7,7 +7,7 @@
     font-size: 42px;
     margin: 0 auto;
     font-weight: bold;
-    color: white;
+    color: black;
 }
 
 .ground:hover {
@@ -49,6 +49,10 @@
 
 .point1 {
     fill: #28A86B;
+}
+
+.point1:hover {
+    fill: #48B88B;
 }
 
 

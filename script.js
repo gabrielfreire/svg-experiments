@@ -4,6 +4,7 @@
         svg = document.getElementById('svgContainer'),
         createRect = document.getElementById('create-rect'),
         createCircle = document.getElementById('create-circle'),
+        createLine = document.getElementById('create-line'),
         dragBtn = document.getElementById('drag'),
         scaleBtn = document.getElementById('scale'),
         elementsArray = [],
@@ -15,7 +16,6 @@
         //URL and DATA for XML request
         url = 'http://dub-test-sales1/MAXIMS_DEV/CNHost',
         data = '<events><gridselection selection="0" button="0" id="a1000"/></events>';
-
 
     svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
     svg.setAttributeNS(null, 'viewBox', "0 0 " + screen.width + " " + screen.height);
@@ -49,13 +49,53 @@
     function element_position(e) {
         var x = 0,
             y = 0;
-        console.log(e);
+
         var inner = true;
         do {
             x += e.offsetLeft;
             y += e.offsetTop;
         } while (e = e.offsetParent);
         return { x: Number(x), y: Number(y) };
+    }
+
+    function _createLine(event) {
+        var positionX = event.clientX,
+            positionY = event.clientY,
+            element = svgElement.createLine(Math.round(positionX), Math.round(positionY - 50), Math.round(positionX), Math.round(positionY - 50), 'black', '15');
+
+        var s = svgElement.createCircle(Math.round(positionX), Math.round(positionY - 50));
+        s.attr('class', 'point1')
+            .attr('r', '10');
+
+        function scaleX(event) {
+            var selectedElement = element,
+                circle = s,
+                movementX = event.clientX,
+                movementY = event.clientY;
+
+            circle.attr('cx', movementX)
+                .attr('cy', movementY - 50);
+            selectedElement.attr('x2', movementX)
+                .attr('y2', movementY - 50);
+            console.log('movement');
+            positionX = movementX;
+            positionY = movementY;
+        }
+
+        function deselect(e) {
+            s.removeEvent('mousemove', scaleX);
+            s.removeEvent('mouseup', deselect);
+            // s.removeEvent('mouseout', deselect);
+        }
+        s.addEvent('mousemove', scaleX);
+        s.addEvent('mouseup', deselect);
+        // s.addEvent('mouseout', deselect);
+
+        svg.appendChild(element.el);
+        svg.appendChild(s.el);
+        elementsArray.push(element);
+        elementsArray.push(s);
+
     }
     /**
      * CREATE SVG ELEMENT EVENT METHOD
@@ -64,7 +104,7 @@
         var positionX = event.clientX,
             positionY = event.clientY,
             //x, y, width, height
-            element = svgElement.createRect(positionX, positionY);
+            element = svgElement.createRect(Math.round(positionX), Math.round(positionY));
 
         svg.appendChild(element.el);
         elementsArray.push(element);
@@ -75,6 +115,7 @@
             positionY = event.clientY,
             //x, y, width, height
             element = svgElement.createCircle(Math.round(positionX), Math.round(positionY));
+
         svg.appendChild(element.el);
         elementsArray.push(element);
     }
@@ -92,8 +133,10 @@
         scaleBtn.classList.remove('active');
         createRect.classList.add('active');
         createCircle.classList.remove('active');
+        createLine.classList.remove('active');
         svgPlaceholder.removeEventListener('mouseup', _createCircleX);
         svgPlaceholder.addEventListener('mouseup', _createRectX);
+        svgPlaceholder.removeEventListener('mousedown', _createLine);
         svgPlaceholder.classList.add('createMode');
         if (elementsArray.length > 0) {
             elementsArray.forEach(function(element) {
@@ -106,9 +149,28 @@
         dragBtn.classList.remove('active');
         scaleBtn.classList.remove('active');
         createRect.classList.remove('active');
+        createLine.classList.remove('active');
         createCircle.classList.add('active');
         svgPlaceholder.removeEventListener('mouseup', _createRectX);
         svgPlaceholder.addEventListener('mouseup', _createCircleX);
+        svgPlaceholder.removeEventListener('mousedown', _createLine);
+        svgPlaceholder.classList.add('createMode');
+        if (elementsArray.length > 0) {
+            elementsArray.forEach(function(element) {
+                element.el.removeEventListener('mousedown', element.selectToScaleElement);
+                element.el.removeEventListener('mousedown', element.selectToDragElement);
+            });
+        }
+    });
+    createLine.addEventListener('click', function(e) {
+        dragBtn.classList.remove('active');
+        scaleBtn.classList.remove('active');
+        createRect.classList.remove('active');
+        createLine.classList.add('active');
+        createCircle.classList.remove('active');
+        svgPlaceholder.removeEventListener('mouseup', _createRectX);
+        svgPlaceholder.removeEventListener('mouseup', _createCircleX);
+        svgPlaceholder.addEventListener('mousedown', _createLine);
         svgPlaceholder.classList.add('createMode');
         if (elementsArray.length > 0) {
             elementsArray.forEach(function(element) {
@@ -125,8 +187,10 @@
         scaleBtn.classList.remove('active');
         createRect.classList.remove('active');
         createCircle.classList.remove('active');
+        createLine.classList.remove('active');
         svgPlaceholder.removeEventListener('mouseup', _createRectX);
         svgPlaceholder.removeEventListener('mouseup', _createCircleX);
+        svgPlaceholder.removeEventListener('mousedown', _createLine);
         svgPlaceholder.classList.remove('createMode');
         if (elementsArray.length > 0) {
             elementsArray.forEach(function(element) {
@@ -143,8 +207,10 @@
         scaleBtn.classList.add('active');
         createRect.classList.remove('active');
         createCircle.classList.remove('active');
+        createLine.classList.remove('active');
         svgPlaceholder.removeEventListener('mouseup', _createRectX);
         svgPlaceholder.removeEventListener('mouseup', _createCircleX);
+        svgPlaceholder.removeEventListener('mousedown', _createLine);
         svgPlaceholder.classList.remove('createMode');
         if (elementsArray.length > 0) {
             elementsArray.forEach(function(element) {

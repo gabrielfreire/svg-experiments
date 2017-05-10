@@ -30,9 +30,6 @@
                 _selectElement(e, point);
             });
         });
-        equation = svgDoc.getElementById('equation');
-        text_variables = [];
-        for (var i = 0; i < 4; i++) { text_variables.push(svgDoc.getElementById('variable' + i)) }
     };
 
     window.addEventListener('load', init);
