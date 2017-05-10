@@ -10,8 +10,9 @@
         elementsArray = [],
         oldX = 0,
         svgElement = new SVGElement({
-            stroke: 'black',
-            color: 'white'
+            stroke: 'red',
+            strokeWidth: '4',
+            color: 'transparent'
         }),
         //URL and DATA for XML request
         url = 'http://dub-test-sales1/MAXIMS_DEV/CNHost',
@@ -61,11 +62,9 @@
     function _createLine(event) {
         var positionX = event.clientX,
             positionY = event.clientY - 50 + window.scrollY,
-            element = svgElement.createLine(Math.round(positionX), Math.round(positionY), Math.round(positionX), Math.round(positionY), 'black', '15');
+            element = svgElement.createLine(positionX, positionY, positionX, positionY, 'black', '2');
 
-        var s = svgElement.createCircle(Math.round(positionX), Math.round(positionY));
-        s.attr('class', 'point1')
-            .attr('r', '10');
+        var s = svgElement.createControlPoint(positionX, positionY, element);
 
         function scaleX(event) {
             var selectedElement = element,
@@ -77,9 +76,9 @@
                 .attr('cy', movementY);
             selectedElement.attr('x2', movementX)
                 .attr('y2', movementY);
-            console.log('movement');
-            positionX = movementX;
-            positionY = movementY;
+
+            positionX = event.clientX;
+            positionY = event.clientY;
         }
 
         function deselect(e) {

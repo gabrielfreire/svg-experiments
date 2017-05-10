@@ -15,6 +15,13 @@
     fill: #896d3d;
 }
 
+#svgPlaceholder {
+    background: url('images/human.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position-x: 50%;
+}
+
 
 /* ---------------- */
 
@@ -47,12 +54,9 @@
     fill: #6495ED;
 }
 
-.point1 {
-    fill: #28A86B;
-}
-
 .point1:hover {
-    fill: #48B88B;
+    /*fill: #48B88B;*/
+    opacity: .6;
 }
 
 
@@ -67,6 +71,7 @@
 
 .svgElement:hover {
     fill: #faff8a;
+    opacity: 0.6;
 }
 
 .phrase {
