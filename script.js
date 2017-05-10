@@ -1,6 +1,7 @@
 (function(global) {
     'use strict';
     var svgPlaceholder = document.getElementById("svgPlaceholder"),
+        doc = document,
         svg = document.getElementById('svgContainer'),
         createRect = document.getElementById('create-rect'),
         createCircle = document.getElementById('create-circle'),
@@ -21,7 +22,7 @@
     svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
     svg.setAttributeNS(null, 'viewBox', "0 0 " + screen.width + " " + screen.height);
 
-
+    console.log(window.svgDocument);
     //Function to handle XML http requests
     function _xmlHttpRequest(url, data, success, error) {
         jQuery.ajax({
@@ -61,19 +62,24 @@
 
     function _createLine(event) {
         var positionX = event.clientX,
-            positionY = event.clientY - 50 + window.scrollY,
-            element = svgElement.createLine(positionX, positionY, positionX, positionY, 'black', '2');
+            positionY = event.clientY,
+            element = svgElement.createLine(positionX, positionY - 50 + window.scrollY, positionX, positionY - 50 + window.scrollY, 'black', '2');
 
-        var s = svgElement.createControlPoint(positionX, positionY, element);
+        var s = svgElement.createControlPoint(positionX, positionY - 50 + window.scrollY, element);
+        console.log(event.target.ownerDocument);
 
         function scaleX(event) {
             var selectedElement = element,
                 circle = s,
-                movementX = event.clientX,
-                movementY = event.clientY - 50 + window.scrollY;
+                dx = event.clientX - positionX,
+                dy = event.clientY - positionY,
+                movementX = parseInt(element.getLineX()) + dx,
+                movementY = parseInt(element.getLineY()) + dy,
+                translate = 'translate(' + movementX + ', ' + movementY + ')';
 
             circle.attr('cx', movementX)
                 .attr('cy', movementY);
+
             selectedElement.attr('x2', movementX)
                 .attr('y2', movementY);
 
@@ -83,10 +89,12 @@
 
         function deselect(e) {
             s.removeEvent('mousemove', scaleX);
+            svgPlaceholder.removeEventListener('mousemove', scaleX);
             s.removeEvent('mouseup', deselect);
             // s.removeEvent('mouseout', deselect);
         }
         s.addEvent('mousemove', scaleX);
+        svgPlaceholder.addEventListener('mousemove', scaleX);
         s.addEvent('mouseup', deselect);
         // s.addEvent('mouseout', deselect);
 
