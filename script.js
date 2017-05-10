@@ -60,10 +60,10 @@
 
     function _createLine(event) {
         var positionX = event.clientX,
-            positionY = event.clientY,
-            element = svgElement.createLine(Math.round(positionX), Math.round(positionY - 50), Math.round(positionX), Math.round(positionY - 50), 'black', '15');
+            positionY = event.clientY - 50 + window.scrollY,
+            element = svgElement.createLine(Math.round(positionX), Math.round(positionY), Math.round(positionX), Math.round(positionY), 'black', '15');
 
-        var s = svgElement.createCircle(Math.round(positionX), Math.round(positionY - 50));
+        var s = svgElement.createCircle(Math.round(positionX), Math.round(positionY));
         s.attr('class', 'point1')
             .attr('r', '10');
 
@@ -71,12 +71,12 @@
             var selectedElement = element,
                 circle = s,
                 movementX = event.clientX,
-                movementY = event.clientY;
+                movementY = event.clientY - 50 + window.scrollY;
 
             circle.attr('cx', movementX)
-                .attr('cy', movementY - 50);
+                .attr('cy', movementY);
             selectedElement.attr('x2', movementX)
-                .attr('y2', movementY - 50);
+                .attr('y2', movementY);
             console.log('movement');
             positionX = movementX;
             positionY = movementY;
@@ -94,7 +94,6 @@
         svg.appendChild(element.el);
         svg.appendChild(s.el);
         elementsArray.push(element);
-        elementsArray.push(s);
 
     }
     /**
@@ -102,7 +101,7 @@
      */
     function _createRectX(event) {
         var positionX = event.clientX,
-            positionY = event.clientY,
+            positionY = event.clientY - 50 + window.scrollY,
             //x, y, width, height
             element = svgElement.createRect(Math.round(positionX), Math.round(positionY));
 
@@ -112,7 +111,7 @@
 
     function _createCircleX(event) {
         var positionX = event.clientX,
-            positionY = event.clientY,
+            positionY = event.clientY - 50 + window.scrollY,
             //x, y, width, height
             element = svgElement.createCircle(Math.round(positionX), Math.round(positionY));
 
