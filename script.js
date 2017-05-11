@@ -1,20 +1,20 @@
 (function(global) {
     'use strict';
     var svgPlaceholder = document.getElementById("svgPlaceholder"),
-        doc = document,
         svg = document.getElementById('svgContainer'),
         createRect = document.getElementById('create-rect'),
         createCircle = document.getElementById('create-circle'),
         createLine = document.getElementById('create-line'),
+        downloadBtn = document.getElementById('download'),
         dragBtn = document.getElementById('drag'),
         scaleBtn = document.getElementById('scale'),
-        elementsArray = [],
         oldX = 0,
         svgElement = new SVGElement({
             stroke: 'red',
             strokeWidth: '4',
             color: 'transparent'
         }),
+        downloadManager = new DownloadManager(),
         //URL and DATA for XML request
         url = 'http://dub-test-sales1/MAXIMS_DEV/CNHost',
         data = '<events><gridselection selection="0" button="0" id="a1000"/></events>';
@@ -77,9 +77,11 @@
                 movementY = parseInt(element.getLineY()) + dy,
                 translate = 'translate(' + movementX + ', ' + movementY + ')';
 
+            // Control point to be selected and move along with the element to be moved
             circle.attr('cx', movementX)
                 .attr('cy', movementY);
 
+            // Element to be moved
             selectedElement.attr('x2', movementX)
                 .attr('y2', movementY);
 
@@ -88,19 +90,24 @@
         }
 
         function deselect(e) {
+            // Deselect the control point
             s.removeEvent('mousemove', scaleX);
-            svgPlaceholder.removeEventListener('mousemove', scaleX);
             s.removeEvent('mouseup', deselect);
+            // Deselect the parent element ( Canvas/Container )
+            svgPlaceholder.removeEventListener('mousemove', scaleX);
+            svgPlaceholder.removeEventListener('mouseup', deselect);
             // s.removeEvent('mouseout', deselect);
         }
+        // Control point events
         s.addEvent('mousemove', scaleX);
-        svgPlaceholder.addEventListener('mousemove', scaleX);
         s.addEvent('mouseup', deselect);
+        // Parent Element events ( Canvas/Container )
+        svgPlaceholder.addEventListener('mousemove', scaleX);
+        svgPlaceholder.addEventListener('mouseup', deselect);
         // s.addEvent('mouseout', deselect);
 
         svg.appendChild(element.el);
         svg.appendChild(s.el);
-        elementsArray.push(element);
 
     }
     /**
@@ -113,7 +120,6 @@
             element = svgElement.createRect(Math.round(positionX), Math.round(positionY));
 
         svg.appendChild(element.el);
-        elementsArray.push(element);
     }
 
     function _createCircleX(event) {
@@ -123,12 +129,11 @@
             element = svgElement.createCircle(Math.round(positionX), Math.round(positionY));
 
         svg.appendChild(element.el);
-        elementsArray.push(element);
     }
     /**
-     * ----------------------
+     * ------------------------
      * Adding Events to buttons
-     * ----------------------
+     * ------------------------
      */
 
     // --------
@@ -144,8 +149,8 @@
         svgPlaceholder.addEventListener('mouseup', _createRectX);
         svgPlaceholder.removeEventListener('mousedown', _createLine);
         svgPlaceholder.classList.add('createMode');
-        if (elementsArray.length > 0) {
-            elementsArray.forEach(function(element) {
+        if (svgElement.elements.length > 0) {
+            svgElement.elements.forEach(function(element) {
                 element.el.removeEventListener('mousedown', element.selectToScaleElement);
                 element.el.removeEventListener('mousedown', element.selectToDragElement);
             });
@@ -161,8 +166,8 @@
         svgPlaceholder.addEventListener('mouseup', _createCircleX);
         svgPlaceholder.removeEventListener('mousedown', _createLine);
         svgPlaceholder.classList.add('createMode');
-        if (elementsArray.length > 0) {
-            elementsArray.forEach(function(element) {
+        if (svgElement.elements.length > 0) {
+            svgElement.elements.forEach(function(element) {
                 element.el.removeEventListener('mousedown', element.selectToScaleElement);
                 element.el.removeEventListener('mousedown', element.selectToDragElement);
             });
@@ -178,8 +183,8 @@
         svgPlaceholder.removeEventListener('mouseup', _createCircleX);
         svgPlaceholder.addEventListener('mousedown', _createLine);
         svgPlaceholder.classList.add('createMode');
-        if (elementsArray.length > 0) {
-            elementsArray.forEach(function(element) {
+        if (svgElement.elements.length > 0) {
+            svgElement.elements.forEach(function(element) {
                 element.el.removeEventListener('mousedown', element.selectToScaleElement);
                 element.el.removeEventListener('mousedown', element.selectToDragElement);
             });
@@ -198,8 +203,8 @@
         svgPlaceholder.removeEventListener('mouseup', _createCircleX);
         svgPlaceholder.removeEventListener('mousedown', _createLine);
         svgPlaceholder.classList.remove('createMode');
-        if (elementsArray.length > 0) {
-            elementsArray.forEach(function(element) {
+        if (svgElement.elements.length > 0) {
+            svgElement.elements.forEach(function(element) {
                 element.el.removeEventListener('mousedown', element.selectToScaleElement);
                 element.el.addEventListener('mousedown', element.selectToDragElement);
             });
@@ -218,12 +223,15 @@
         svgPlaceholder.removeEventListener('mouseup', _createCircleX);
         svgPlaceholder.removeEventListener('mousedown', _createLine);
         svgPlaceholder.classList.remove('createMode');
-        if (elementsArray.length > 0) {
-            elementsArray.forEach(function(element) {
+        if (svgElement.elements.length > 0) {
+            svgElement.elements.forEach(function(element) {
                 element.el.removeEventListener('mousedown', element.selectToDragElement);
                 element.el.addEventListener('mousedown', element.selectToScaleElement);
             });
         }
+    });
+    downloadBtn.addEventListener('click', function(e) {
+        downloadManager.initialize();
     });
     /**
      * END BUTTON EVENTS
