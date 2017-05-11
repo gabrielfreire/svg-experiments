@@ -20,11 +20,20 @@ body {
     fill: #896d3d;
 }
 
-#svgPlaceholder {
-    background: url('images/human.jpg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position-x: 50%;
+#bg {
+    position: absolute;
+    top: 14%;
+    left: 18%;
+    z-index: -1;
+}
+
+.svg-iframe {
+    display: block;
+    /* margin-top: 10px; */
+    margin: 0 auto;
+    margin-top: 40px;
+    width: 100%;
+    height: 100%;
 }
 
 
@@ -68,12 +77,17 @@ body {
 /* ---------------- */
 
 .svg {
-    height: 700px;
+    height: auto;
     width: 100%;
 }
 
 .svgElement:hover {
     fill: #faff8a;
+    opacity: 0.6;
+}
+
+.svgElement-active {
+    fill: black;
     opacity: 0.6;
 }
 

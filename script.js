@@ -21,8 +21,11 @@
 
     svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
     svg.setAttributeNS(null, 'viewBox', "0 0 " + screen.width + " " + screen.height);
+    // var object = document.createElement('object');
+    // object.setAttribute('data', 'images/human-body-man.svg');
+    // object.setAttribute('type', 'text/svg+xml');
+    // svgPlaceholder.insertBefore(object, svgPlaceholder.firstChild);
 
-    console.log(window.svgDocument);
     //Function to handle XML http requests
     function _xmlHttpRequest(url, data, success, error) {
         jQuery.ajax({
@@ -61,13 +64,14 @@
     }
 
     function _createLine(event) {
-        var positionX = event.clientX,
-            positionY = event.clientY,
-            element = svgElement.createLine(positionX, positionY - 50 + window.scrollY, positionX, positionY - 50 + window.scrollY, 'black', '2'),
-            controlPoint = svgElement.createControlPoint(positionX, positionY - 50 + window.scrollY, element);
+        var offsetTop = svgPlaceholder.offsetTop,
+            positionX = event.clientX,
+            positionY = event.clientY - offsetTop + window.scrollY,
+            element = svgElement.createLine(positionX, positionY, positionX, positionY, 'black', '2'),
+            controlPoint = svgElement.createControlPoint(positionX, positionY, element);
 
         //event, control point, the element to be moved and the svg container
-        controlPoint.selectToDragControlPoint(event, controlPoint, element, svgPlaceholder);
+        controlPoint.selectToDragControlPoint(event, element, svgPlaceholder);
         //ideas
         //controlPoint.fixTo(element); << TODO
 
@@ -79,8 +83,9 @@
      * CREATE SVG ELEMENT EVENT METHOD
      */
     function _createRectX(event) {
-        var positionX = event.clientX,
-            positionY = event.clientY - 50 + window.scrollY,
+        var offsetTop = svgPlaceholder.offsetTop,
+            positionX = event.clientX,
+            positionY = event.clientY - offsetTop + window.scrollY,
             //x, y, width, height
             element = svgElement.createRect(Math.round(positionX), Math.round(positionY));
 
@@ -88,8 +93,9 @@
     }
 
     function _createCircleX(event) {
-        var positionX = event.clientX,
-            positionY = event.clientY - 50 + window.scrollY,
+        var offsetTop = svgPlaceholder.offsetTop,
+            positionX = event.clientX,
+            positionY = event.clientY - offsetTop + window.scrollY,
             //x, y, width, height
             element = svgElement.createCircle(Math.round(positionX), Math.round(positionY));
 
