@@ -63,51 +63,16 @@
     function _createLine(event) {
         var positionX = event.clientX,
             positionY = event.clientY,
-            element = svgElement.createLine(positionX, positionY - 50 + window.scrollY, positionX, positionY - 50 + window.scrollY, 'black', '2');
+            element = svgElement.createLine(positionX, positionY - 50 + window.scrollY, positionX, positionY - 50 + window.scrollY, 'black', '2'),
+            controlPoint = svgElement.createControlPoint(positionX, positionY - 50 + window.scrollY, element);
 
-        var s = svgElement.createControlPoint(positionX, positionY - 50 + window.scrollY, element);
-        console.log(event.target.ownerDocument);
-
-        function scaleX(event) {
-            var selectedElement = element,
-                circle = s,
-                dx = event.clientX - positionX,
-                dy = event.clientY - positionY,
-                movementX = parseInt(element.getLineX()) + dx,
-                movementY = parseInt(element.getLineY()) + dy,
-                translate = 'translate(' + movementX + ', ' + movementY + ')';
-
-            // Control point to be selected and move along with the element to be moved
-            circle.attr('cx', movementX)
-                .attr('cy', movementY);
-
-            // Element to be moved
-            selectedElement.attr('x2', movementX)
-                .attr('y2', movementY);
-
-            positionX = event.clientX;
-            positionY = event.clientY;
-        }
-
-        function deselect(e) {
-            // Deselect the control point
-            s.removeEvent('mousemove', scaleX);
-            s.removeEvent('mouseup', deselect);
-            // Deselect the parent element ( Canvas/Container )
-            svgPlaceholder.removeEventListener('mousemove', scaleX);
-            svgPlaceholder.removeEventListener('mouseup', deselect);
-            // s.removeEvent('mouseout', deselect);
-        }
-        // Control point events
-        s.addEvent('mousemove', scaleX);
-        s.addEvent('mouseup', deselect);
-        // Parent Element events ( Canvas/Container )
-        svgPlaceholder.addEventListener('mousemove', scaleX);
-        svgPlaceholder.addEventListener('mouseup', deselect);
-        // s.addEvent('mouseout', deselect);
+        //event, control point, the element to be moved and the svg container
+        controlPoint.selectToDragControlPoint(event, controlPoint, element, svgPlaceholder);
+        //ideas
+        //controlPoint.fixTo(element); << TODO
 
         svg.appendChild(element.el);
-        svg.appendChild(s.el);
+        svg.appendChild(controlPoint.el);
 
     }
     /**
