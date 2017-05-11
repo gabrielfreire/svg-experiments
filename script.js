@@ -231,7 +231,7 @@
         }
     });
     downloadBtn.addEventListener('click', function(e) {
-        downloadManager.initialize();
+        downloadManager.download();
     });
     /**
      * END BUTTON EVENTS
