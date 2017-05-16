@@ -7,14 +7,6 @@ body {
     fill: #ace63c;
 }
 
-.w-title {
-    text-align: center;
-    font-size: 42px;
-    margin: 0 auto;
-    font-weight: bold;
-    color: black;
-}
-
 .ground:hover {
     /*filter: url(#pictureFilter);*/
     fill: #896d3d;
@@ -79,6 +71,10 @@ body {
 .svg {
     height: auto;
     width: 100%;
+    background-color: transparent;
+    background-image: linear-gradient(0deg, transparent 24%, rgba(50, 50, 50, .05) 25%, rgba(50, 50, 50, .05) 26%, transparent 27%, transparent 74%, rgba(50, 50, 50, .05) 75%, rgba(50, 50, 50, .05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(50, 50, 50, .05) 25%, rgba(50, 50, 50, .05) 26%, transparent 27%, transparent 74%, rgba(50, 50, 50, .05) 75%, rgba(50, 50, 50, .05) 76%, transparent 77%, transparent);
+    height: 100%;
+    background-size: 50px 50px;
 }
 
 .svgElement:hover {
@@ -99,11 +95,11 @@ body {
 }
 
 button.btn-create {
-    padding: 20px;
-    margin: 5px;
-    width: 140px;
+    padding: 10px;
+    margin: 3px;
+    width: auto;
     border: none;
-    font-size: 21px;
+    font-size: 15px;
     /*outline: none;*/
     color: white;
     background-color: black;
@@ -111,11 +107,11 @@ button.btn-create {
 }
 
 button.btn-create-obj {
-    padding: 15px;
-    margin: 5px;
-    width: 80px;
+    padding: 3px;
+    margin: 3px;
+    width: 50px;
     border: none;
-    font-size: 28px;
+    font-size: 25px;
     /*outline: none;*/
     color: black;
     background-color: gray;
@@ -141,4 +137,18 @@ button.btn-create-obj {
 
 .createMode {
     cursor: pointer;
+}
+
+.toolbar {
+    list-style-type: none;
+    display: flex;
+}
+
+.toolbar-title {
+    text-align: left;
+    font-size: 30px;
+    margin: 0;
+    margin-right: 20px;
+    font-weight: bold;
+    color: black;
 }

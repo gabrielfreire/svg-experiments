@@ -51,18 +51,6 @@
         // console.log(thrownError);
     });
 
-    function element_position(e) {
-        var x = 0,
-            y = 0;
-
-        var inner = true;
-        do {
-            x += e.offsetLeft;
-            y += e.offsetTop;
-        } while (e = e.offsetParent);
-        return { x: Number(x), y: Number(y) };
-    }
-
     function _createLine(event) {
         var offsetTop = svgPlaceholder.offsetTop,
             positionX = event.clientX,
