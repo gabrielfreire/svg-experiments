@@ -10,8 +10,8 @@
         scaleBtn = document.getElementById('scale'),
         oldX = 0,
         svgElement = new SVGElement({
-            stroke: 'red',
-            strokeWidth: '4',
+            stroke: 'black',
+            strokeWidth: '2',
             color: 'transparent'
         }),
         downloadManager = new DownloadManager(),
@@ -56,10 +56,11 @@
             positionX = event.clientX,
             positionY = event.clientY - offsetTop + window.scrollY,
             element = svgElement.createLine(positionX, positionY, positionX, positionY, 'black', '2'),
-            controlPoint = svgElement.createControlPoint(positionX, positionY, element);
+            controlPoint = svgElement.createControlPoint(positionX, positionY, '10', element);
 
         //event, control point, the element to be moved and the svg container
         controlPoint.selectToDragControlPoint(event, element, svgPlaceholder);
+        controlPoint.el.addEventListener('mousedown', element.selectToDragElement);
         //ideas
         //controlPoint.fixTo(element); << TODO
 

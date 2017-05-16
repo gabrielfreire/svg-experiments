@@ -72,7 +72,7 @@ body {
     height: auto;
     width: 100%;
     background-color: transparent;
-    background-image: linear-gradient(0deg, transparent 24%, rgba(50, 50, 50, .05) 25%, rgba(50, 50, 50, .05) 26%, transparent 27%, transparent 74%, rgba(50, 50, 50, .05) 75%, rgba(50, 50, 50, .05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(50, 50, 50, .05) 25%, rgba(50, 50, 50, .05) 26%, transparent 27%, transparent 74%, rgba(50, 50, 50, .05) 75%, rgba(50, 50, 50, .05) 76%, transparent 77%, transparent);
+    background-image: linear-gradient(0deg, transparent 24%, rgba(20, 20, 20, .05) 25%, rgba(20, 20, 20, .05) 26%, transparent 27%, transparent 74%, rgba(20, 20, 20, .05) 75%, rgba(20, 20, 20, .05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(20, 20, 20, .05) 25%, rgba(20, 20, 20, .05) 26%, transparent 27%, transparent 74%, rgba(20, 20, 20, .05) 75%, rgba(20, 20, 20, .05) 76%, transparent 77%, transparent);
     height: 100%;
     background-size: 50px 50px;
 }
