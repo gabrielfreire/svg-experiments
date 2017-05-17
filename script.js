@@ -53,8 +53,8 @@
             element = svgElement.createLine(positionX, positionY, positionX, positionY, 'black', '2'),
             controlPoint = svgElement.createControlPoint(positionX, positionY, '10', 'black', element);
 
-        //event, control point, the element to be moved and the svg container
-        controlPoint.selectToDragControlPoint(event, element, svgPlaceholder);
+        //event, control point and the element to be moved
+        controlPoint.selectToDragControlPoint(event, element);
 
         //ideas
         //controlPoint.fixTo(element); << TODO
