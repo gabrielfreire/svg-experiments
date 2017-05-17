@@ -1,0 +1,43 @@
+<template id='svg-drawer'>
+    <ul class='toolbar'>
+        <li>
+            <h3 class="toolbar-title">SVG Drawer</h3>
+        </li>
+        <li>
+            <button id="create-circle" class="btn-create-obj"><i class="fa fa-circle-o" aria-hidden="true"></i></button>
+        </li>
+        <li>
+            <button id="create-rect" class="btn-create-obj"><i class="fa fa-square-o" aria-hidden="true"></i></button>
+        </li>
+        <li>
+            <button id="create-line" class="btn-create-obj"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button>
+        </li>
+        <li>
+            <button id="drag" class="btn-create">Drag</button>
+        </li>
+        <li>
+            <button id="scale" class="btn-create">Scale</button>
+        </li>
+        <li>
+            <button id="download" class="btn-create">Download SVG</button>
+        </li>
+    </ul>
+
+    <div id="svgPlaceholder" class='svg'>
+        <svg id='svgContainer' x="0" y="0">
+        </svg>
+    </div>
+</template>
+
+<script>
+    //Code to make the template activate it self as it is imported
+    var tempDocument = document.currentScript.ownerDocument,
+        template = tempDocument.getElementById('svg-drawer'),
+        templateNode = tempDocument.importNode(template.content, true);
+    // var templateNode = tempDocument.getElementById('svg-drawer');
+    document.body.appendChild(templateNode);
+</script>
+<script src="download.js"></script>
+<script src="element.model.js"></script>
+<script src="svg.model.js"></script>
+<script src="script.js"></script>

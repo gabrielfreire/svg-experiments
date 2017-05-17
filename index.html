@@ -6,49 +6,13 @@
     <meta charset="UTF-8">
     <title>SVG</title>
     <link rel="stylesheet" href="style.css" />
-
+    <link rel='import' href='lib/svg-drawer-template.html' />
 </head>
 
 <body>
-    <ul class='toolbar'>
-        <li>
-            <h3 class="toolbar-title">SVG Drawer</h3>
-        </li>
-        <li>
-            <button id="create-circle" class="btn-create-obj"><i class="fa fa-circle-o" aria-hidden="true"></i></button>
-        </li>
-        <li>
-            <button id="create-rect" class="btn-create-obj"><i class="fa fa-square-o" aria-hidden="true"></i></button>
-        </li>
-        <li>
-            <button id="create-line" class="btn-create-obj"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button>
-        </li>
-        <li>
-            <button id="drag" class="btn-create">Drag</button>
-        </li>
-        <li>
-            <button id="scale" class="btn-create">Scale</button>
-        </li>
-        <li>
-            <button id="download" class="btn-create">Download SVG</button>
-        </li>
-    </ul>
 
-    <div id="svgPlaceholder" class='svg'>
-        <svg id='svgContainer' x="0" y="0">
-        </svg>
-    </div>
-
-    <!--<object data="images/human-body-man.svg" type="image/svg+xml">
-        <img src="images/human.jpg" />
-    </object>-->
     <script src="node_modules/requirejs/require.js"></script>
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <!--<script src="test.js"></script>-->
-    <script src="lib/download.js"></script>
-    <script src="lib/element.model.js"></script>
-    <script src="lib/svg.model.js"></script>
-    <script src="script.js"></script>
 </body>
 
 </html>
