@@ -1,0 +1,26 @@
+<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg id="svgContainer" x="0" y="0" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs xmlns="http://www.w3.org/1999/xhtml"><style type="text/css"><![CDATA[
+body { margin: 0px; padding: 0px; }
+.kiwi:hover { fill: rgb(172, 230, 60); }
+.ground:hover { fill: rgb(137, 109, 61); }
+#bg { position: absolute; top: 14%; left: 18%; z-index: -1; }
+.svg-iframe { display: block; margin: 40px auto 0px; width: 100%; height: 100%; }
+.background { fill: none; stroke: rgb(68, 68, 68); stroke-width: 1; stroke-dasharray: 5, 5; }
+.control_point { fill-opacity: 0; stroke-opacity: 0; stroke: rgb(136, 136, 136); stroke-width: 2; cursor: pointer; }
+#example_shape { stroke: rgb(102, 102, 102); stroke-width: 2; fill: none; }
+.invisible { pointer-events: none; }
+.point2 { fill: rgb(100, 149, 237); }
+.point1:hover { opacity: 0.6; }
+.svg { width: 100%; background-color: transparent; background-image: linear-gradient(0deg, transparent 24%, rgba(20, 20, 20, 0.05) 25%, rgba(20, 20, 20, 0.05) 26%, transparent 27%, transparent 74%, rgba(20, 20, 20, 0.05) 75%, rgba(20, 20, 20, 0.05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(20, 20, 20, 0.05) 25%, rgba(20, 20, 20, 0.05) 26%, transparent 27%, transparent 74%, rgba(20, 20, 20, 0.05) 75%, rgba(20, 20, 20, 0.05) 76%, transparent 77%, transparent); height: 100%; background-size: 50px 50px; }
+.svgElement:hover { fill: rgb(250, 255, 138); opacity: 0.6; }
+.svgElement-active { fill: black; opacity: 0.6; }
+.phrase { position: absolute; font-size: 26px; font-weight: bold; color: white; }
+button.btn-create { padding: 10px; margin: 3px; width: auto; border: none; font-size: 15px; color: white; background-color: black; cursor: pointer; }
+button.btn-create-obj { padding: 3px; margin: 3px; width: 50px; font-size: 25px; color: black; background-color: gray; border: 2px solid black; cursor: pointer; }
+.btn-create:hover { background-color: gray; }
+.btn-create-obj:hover { background-color: white; }
+.btn-create:focus { background-color: cornflowerblue; }
+.active { background-color: cornflowerblue; }
+.createMode { cursor: pointer; }
+.toolbar { list-style-type: none; display: flex; }
+.toolbar-title { text-align: left; font-size: 30px; margin: 0px 20px 0px 0px; font-weight: bold; color: black; }]]></style></defs>
+        <line stroke="black" x1="513" y1="141" x2="514" y2="274" stroke-width="3" d="M 700 50 l 100 100"/><circle class="point1" r="10" fill="black" cx="514" cy="274" stroke="black" stroke-width=".6px" transform="matrix(1 0 0 1 0 0)" control_point="true"/><line stroke="black" x1="514" y1="274" x2="632" y2="273" stroke-width="3" d="M 700 50 l 100 100"/><circle class="point1" r="6.3999999999999995" fill="black" cx="632" cy="273" stroke="black" stroke-width=".6px" transform="matrix(1 0 0 1 0 0)" control_point="true"/><line stroke="black" x1="632" y1="273" x2="613" y2="224" stroke-width="3" d="M 700 50 l 100 100"/><circle class="point1" r="6.3999999999999995" fill="black" cx="613" cy="224" stroke="black" stroke-width=".6px" transform="matrix(1 0 0 1 0 0)" control_point="true"/><line stroke="black" x1="613" y1="224" x2="574" y2="173" stroke-width="3" d="M 700 50 l 100 100"/><circle class="point1" r="6.3999999999999995" fill="black" cx="578" cy="175" stroke="black" stroke-width=".6px" transform="matrix(1 0 0 1 -4 -2)" control_point="true"/><line stroke="black" x1="577" y1="174" x2="512" y2="142" stroke-width="3" d="M 700 50 l 100 100"/><circle class="point1" r="4.6" fill="black" cx="512" cy="142" stroke="black" stroke-width=".6px" transform="matrix(1 0 0 1 0 0)" control_point="true"/></svg>

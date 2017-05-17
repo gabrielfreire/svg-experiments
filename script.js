@@ -21,46 +21,41 @@
 
     svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
     svg.setAttributeNS(null, 'viewBox', "0 0 " + screen.width + " " + screen.height);
-    // var object = document.createElement('object');
-    // object.setAttribute('data', 'images/human-body-man.svg');
-    // object.setAttribute('type', 'text/svg+xml');
-    // svgPlaceholder.insertBefore(object, svgPlaceholder.firstChild);
 
     //Function to handle XML http requests
-    function _xmlHttpRequest(url, data, success, error) {
-        jQuery.ajax({
-            type: "POST",
-            data: data,
-            url: url,
-            dataType: "xml",
-            contentType: "text/xml; charset=utf-8",
-            success: success,
-            error: error
-        });
-    }
-
-
+    // function _xmlHttpRequest(url, data, success, error) {
+    //     jQuery.ajax({
+    //         type: "POST",
+    //         data: data,
+    //         url: url,
+    //         dataType: "xml",
+    //         contentType: "text/xml; charset=utf-8",
+    //         success: success,
+    //         error: error
+    //     });
+    // }
     //TESTING XML REQUEST
-    _xmlHttpRequest(url, data, function(xml) {
-        var parser = new DOMParser(),
-            data = xml.getElementsByTagName('data')[0];
-        console.log(data.childNodes[0], ' < XML DATA Response');
-    }, function(xhr, ajaxOptions, thrownError) {
-        console.log('error');
-        // console.log(xhr.status);          
-        // console.log(thrownError);
-    });
+    // _xmlHttpRequest(url, data, function(xml) {
+    //     var parser = new DOMParser(),
+    //         data = xml.getElementsByTagName('data')[0];
+    //     console.log(data.childNodes[0], ' < XML DATA Response');
+    // }, function(xhr, ajaxOptions, thrownError) {
+    //     console.log('error');
+    //     // console.log(xhr.status);          
+    //     // console.log(thrownError);
+    // });
 
     function _createLine(event) {
         var offsetTop = svgPlaceholder.offsetTop,
-            positionX = event.clientX,
+            offsetLeft = svgPlaceholder.offsetLeft,
+            positionX = event.clientX - offsetLeft,
             positionY = event.clientY - offsetTop + window.scrollY,
             element = svgElement.createLine(positionX, positionY, positionX, positionY, 'black', '2'),
-            controlPoint = svgElement.createControlPoint(positionX, positionY, '10', element);
+            controlPoint = svgElement.createControlPoint(positionX, positionY, '10', 'black', element);
 
         //event, control point, the element to be moved and the svg container
         controlPoint.selectToDragControlPoint(event, element, svgPlaceholder);
-        controlPoint.el.addEventListener('mousedown', element.selectToDragElement);
+
         //ideas
         //controlPoint.fixTo(element); << TODO
 
