@@ -1,8 +1,11 @@
 <template id='svg-drawer'>
+    <!-- Drawer Toolbar -->
     <ul class='toolbar'>
         <li>
+            <!-- Drawer Title -->
             <h3 class="toolbar-title">SVG Drawer</h3>
         </li>
+        <!-- Drawer tool Buttons -->
         <li>
             <button id="create-circle" class="btn-create-obj"><i class="fa fa-circle-o" aria-hidden="true"></i></button>
         </li>
@@ -35,6 +38,8 @@
         template = tempDocument.getElementById('svg-drawer'),
         templateNode = tempDocument.importNode(template.content, true);
     // var templateNode = tempDocument.getElementById('svg-drawer');
+
+    //Here you have to select what ever is the parent element that is going to hold the drawer
     document.body.appendChild(templateNode);
 </script>
 <script src="download.js"></script>
