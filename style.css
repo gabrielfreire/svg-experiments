@@ -119,6 +119,14 @@ button.btn-create-obj {
     cursor: pointer;
 }
 
+.btn-color {
+    border: none;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 3px;
+}
+
 .btn-create:hover {
     background-color: gray;
 }
