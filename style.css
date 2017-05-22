@@ -111,6 +111,12 @@ body {
     color: white;
 }
 
+button img {
+    width: 30px;
+    display: block;
+    margin: 0 auto;
+}
+
 button.btn-create {
     background-color: #4572aa;
     color: white;
